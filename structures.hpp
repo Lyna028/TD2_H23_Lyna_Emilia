@@ -27,3 +27,4 @@ struct Acteur
 	std::string nom; int anneeNaissance; char sexe;
 	ListeFilms joueDans;
 };
+

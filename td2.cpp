@@ -50,10 +50,48 @@ string lireString(istream& fichier)
 #pragma endregion//}
 
 //TODO: Une fonction pour ajouter un Film à une ListeFilms, le film existant déjà; on veut uniquement ajouter le pointeur vers le film existant.  Cette fonction doit doubler la taille du tableau alloué, avec au minimum un élément, dans le cas où la capacité est insuffisante pour ajouter l'élément.  Il faut alors allouer un nouveau tableau plus grand, copier ce qu'il y avait dans l'ancien, et éliminer l'ancien trop petit.  Cette fonction ne doit copier aucun Film ni Acteur, elle doit copier uniquement des pointeurs.
+void ajouterFilm(Film* monFilm, ListeFilms& maListe) {
+
+	if (maListe.capacite == 0) {
+		maListe.capacite = 1;
+	}
+	else {
+		Film** nouveauxFilms = new Film * [maListe.capacite];
+		if (maListe.capacite == maListe.nElements) {
+			maListe.capacite = (maListe.capacite * 2);
+		}
+		for (int i = 0; i < maListe.nElements; i++) {
+			nouveauxFilms[i] = maListe.elements[i];
+		}
+		maListe.elements = nouveauxFilms;
+		delete[] nouveauxFilms;
+	}
+}
 
 //TODO: Une fonction pour enlever un Film d'une ListeFilms (enlever le pointeur) sans effacer le film; la fonction prenant en paramètre un pointeur vers le film à enlever.  L'ordre des films dans la liste n'a pas à être conservé.
+void enleverFilm(Film* monFilm, ListeFilms maListe) {
+	for (int i = 0; i < maListe.nElements; i++) {
+		if (maListe.elements[i] == monFilm) {
+			for (int j=i+1; j< (maListe.nElements); j++) {
+				maListe.elements[i] =  maListe.elements[j];
+			}
+		}
+	}
+}
 
 //TODO: Une fonction pour trouver un Acteur par son nom dans une ListeFilms, qui retourne un pointeur vers l'acteur, ou nullptr si l'acteur n'est pas trouvé.  Devrait utiliser span.
+int* trouverActeur(ListeFilms maListe, string acteur ) {
+	
+	Film** listePtrFilms = new Film* [maListe.capacite];
+	Film listeFilm = **listePtrFilms;
+
+	for (int i =0; i< maListe.nElements; i ++) {
+		for (int )
+
+	}
+	
+}
+
 
 //TODO: Compléter les fonctions pour lire le fichier et créer/allouer une ListeFilms.  La ListeFilms devra être passée entre les fonctions, pour vérifier l'existence d'un Acteur avant de l'allouer à nouveau (cherché par nom en utilisant la fonction ci-dessus).
 Acteur* lireActeur(istream& fichier)
@@ -129,7 +167,8 @@ void afficherFilmographieActeur(const ListeFilms& listeFilms, const string& nomA
 }
 
 int main()
-{
+{	
+	
 	bibliotheque_cours::activerCouleursAnsi();  // Permet sous Windows les "ANSI escape code" pour changer de couleurs https://en.wikipedia.org/wiki/ANSI_escape_code ; les consoles Linux/Mac les supportent normalement par défaut.
 
 	int* fuite = new int; //TODO: Enlever cette ligne après avoir vérifié qu'il y a bien un "Fuite detectee" de "4 octets" affiché à la fin de l'exécution, qui réfère à cette ligne du programme.
